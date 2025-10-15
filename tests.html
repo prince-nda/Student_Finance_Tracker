@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Finance Tracker Tests</title>
+  <style>
+    body { font-family: monospace; background: #fafafa; color: #222; margin: 2em; }
+    .pass { color: green; }
+    .fail { color: red; }
+    table { border-collapse: collapse; margin-top: 1em; }
+    th, td { border: 1px solid #ccc; padding: 0.4em; }
+  </style>
+</head>
+<body>
+  <h1>Student Finance Tracker Tests</h1>
+  <h2>Regex Validation</h2>
+  <table>
+    <thead>
+      <tr>
+        <th>Field</th><th>Value</th><th>Regex</th><th>Result</th>
+      </tr>
+    </thead>
+    <tbody id="results"></tbody>
+  </table>
+  <script>
+    const tests = [
+      // Description
+      {field: 'Description', value: 'Lunch at cafeteria', regex: /^\S(?:.*\S)?$/, expect: true},
+      {field: 'Description', value: '  LeadingSpace', regex: /^\S(?:.*\S)?$/, expect: false},
+      {field: 'Description', value: 'TrailingSpace ', regex: /^\S(?:.*\S)?$/, expect: false},
+      {field: 'Description', value: 'coffee coffee', regex: /\b(\w+)\s+\1\b/, expect: true},
+      {field: 'Description', value: 'no repeat', regex: /\b(\w+)\s+\1\b/, expect: false},
+      // Amount
+      {field: 'Amount', value: '12.50', regex: /^(0|[1-9]\d*)(\.\d{1,2})?$/, expect: true},
+      {field: 'Amount', value: '0', regex: /^(0|[1-9]\d*)(\.\d{1,2})?$/, expect: true},
+      {field: 'Amount', value: '12345.678', regex: /^(0|[1-9]\d*)(\.\d{1,2})?$/, expect: false},
+      // Date
+      {field: 'Date', value: '2025-09-25', regex: /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/, expect: true},
+      {field: 'Date', value: '2025-13-01', regex: /^\d{4}-(0[1-9]|1[0-2])-(0[1-9]|[12]\d|3[01])$/, expect: false},
+      // Category
+      {field: 'Category', value: 'Food', regex: /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/, expect: true},
+      {field: 'Category', value: 'Food-', regex: /^[A-Za-z]+(?:[ -][A-Za-z]+)*$/, expect: false},
+      // Cents present
+      {field: 'Cents', value: '12.50', regex: /\.\d{2}\b/, expect: true},
+      {field: 'Cents', value: '12', regex: /\.\d{2}\b/, expect: false},
+      // Beverage keyword
+      {field: 'Beverage', value: 'Coffee with friends', regex: /(coffee|tea)/i, expect: true},
+      {field: 'Beverage', value: 'Lunch at cafeteria', regex: /(coffee|tea)/i, expect: false},
+    ];
+    const results = document.getElementById('results');
+    tests.forEach(test => {
+      const pass = test.regex.test(test.value) === test.expect;
+      const tr = document.createElement('tr');
+      tr.innerHTML = `<td>${test.field}</td><td>${test.value}</td><td>${test.regex}</td><td class="${pass ? 'pass' : 'fail'}">${pass ? 'PASS' : 'FAIL'}</td>`;
+      results.appendChild(tr);
+    });
+  </script>
+</body>
+</html>
