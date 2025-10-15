@@ -9,47 +9,50 @@
 </head>
 <body>
   <header>
-  <h1>Student Finance Tracker</h1>
-  <div style="display: flex; align-items: center; gap: 2em; flex-wrap: wrap; width: 100%;">
-    <nav style="flex: 1;">
-      <a href="#main" class="skip-link">Skip to content</a>
-      <ul>
-        <li><a href="#dashboard">Dashboard</a></li>
-        <li><a href="#records">Records</a></li>
-        <li><a href="#add">Add/Edit</a></li>
-        <li><a href="#settings">Settings</a></li>
-        <li><a href="#about">About</a></li>
-      </ul>
-    </nav>
-    <div class="theme-switch-wrapper">
-      <label class="theme-switch" for="theme-toggle">
-        <input type="checkbox" id="theme-toggle">
-        <span class="slider"></span>
-      </label>
+    <h1>Student Finance Tracker</h1>
+    <div style="display: flex; align-items: center; gap: 2em; flex-wrap: wrap; width: 100%;">
+      <nav style="flex: 1;">
+        <a href="#main" class="skip-link">Skip to content</a>
+        <ul>
+          <li><a href="#dashboard">Dashboard</a></li>
+          <li><a href="#records">Records</a></li>
+          <li><a href="#add">Add/Edit</a></li>
+          <li><a href="#settings">Settings</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </nav>
+      <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="theme-toggle">
+          <input type="checkbox" id="theme-toggle">
+          <span class="slider"></span>
+        </label>
+      </div>
     </div>
-  </div>
-</header>
+  </header>
+  
   <main id="main">
+    <div id="loading-overlay" aria-live="polite" aria-busy="true" hidden>
+      <p>Loading your financial data...</p>
+    </div>
+    
     <section id="dashboard" aria-labelledby="dashboard-heading">
       <h2 id="dashboard-heading">Statistics Overview</h2>
       <div class="dashboard-cards">
         <div class="stat-card">
-            <div class="stat-title">Total Records</div>
-            <div class="stat-value" id="stat-total">0</div>
-          </div>
+          <div class="stat-title">Total Records</div>
+          <div class="stat-value" id="stat-total">0</div>
+        </div>
         <div class="stat-card">
-            <div class="stat-title">Total Spent</div>
-            <div class="stat-value" id="stat-spent">0</div>
+          <div class="stat-title">Total Spent</div>
+          <div class="stat-value" id="stat-spent">0</div>
         </div>
         <div class="stat-card">
           <div class="stat-title">Top Category</div>
-            <div class="stat-value" id="stat-category">N/A</div>
-          </div>
+          <div class="stat-value" id="stat-category">N/A</div>
         </div>
         <div class="stat-card">
-            <div class="stat-title">Last 7 Days</div>
-            <div class="stat-value" id="stat-trend">0%</div>
-          </div>
+          <div class="stat-title">Last 7 Days</div>
+          <div class="stat-value" id="stat-trend">0%</div>
         </div>
       </div>
       <div class="progress-bar" aria-label="Monthly Cap Progress">
@@ -58,6 +61,7 @@
       <div id="cap-status" aria-live="polite"></div>
       <canvas id="trend-chart" width="400" height="150" aria-label="Last 7 days trend"></canvas>
     </section>
+    
     <section id="records" aria-labelledby="records-heading">
       <h2 id="records-heading">Records</h2>
       <div>
@@ -69,26 +73,29 @@
         <caption id="records-desc">List of all transactions</caption>
         <thead>
           <tr>
-            <th data-sort="date">Date</th>
-            <th data-sort="description">Description</th>
-            <th data-sort="amount">Amount</th>
-            <th data-sort="category">Category</th>
-            <th>Actions</th>
+            <th scope="col" data-sort="date">Date</th>
+            <th scope="col" data-sort="description">Description</th>
+            <th scope="col" data-sort="amount">Amount</th>
+            <th scope="col" data-sort="category">Category</th>
+            <th scope="col">Actions</th>
           </tr>
         </thead>
         <tbody></tbody>
       </table>
       <div id="records-cards" class="cards"></div>
     </section>
+    
     <section id="add" aria-labelledby="add-heading">
       <h2 id="add-heading">Add/Edit Transaction</h2>
       <form id="record-form" autocomplete="off">
         <label for="desc">Description</label>
         <input id="desc" name="description" type="text" required>
         <span class="error" id="desc-error" aria-live="assertive"></span>
+        
         <label for="amt">Amount</label>
         <input id="amt" name="amount" type="number" step="0.01" required>
         <span class="error" id="amt-error" aria-live="assertive"></span>
+        
         <label for="cat">Category</label>
         <input id="cat" name="category" list="cat-list" required>
         <datalist id="cat-list">
@@ -100,12 +107,15 @@
           <option value="Other">
         </datalist>
         <span class="error" id="cat-error" aria-live="assertive"></span>
+        
         <label for="date">Date</label>
         <input id="date" name="date" type="date" required>
         <span class="error" id="date-error" aria-live="assertive"></span>
+        
         <button type="submit">Save</button>
       </form>
     </section>
+    
     <section id="settings" aria-labelledby="settings-heading">
       <h2 id="settings-heading">Settings</h2>
       <form id="settings-form">
@@ -118,32 +128,54 @@
           <option value="GHS">GHS (Ghanaian Cedi)</option>
           <option value="UGX">UGX (Ugandan Shilling)</option>
         </select>
+        
         <label for="rate-eur">EUR Rate</label>
         <input id="rate-eur" name="rateEur" type="number" step="0.01">
+        
         <label for="rate-rwf">RWF Rate</label>
         <input id="rate-rwf" name="rateRwf" type="number" step="0.01">
+        
         <label for="rate-ngn">NGN Rate</label>
         <input id="rate-ngn" name="rateNgn" type="number" step="0.01">
+        
         <label for="rate-ghs">GHS Rate</label>
         <input id="rate-ghs" name="rateGhs" type="number" step="0.01">
+        
         <label for="rate-ugx">UGX Rate</label>
         <input id="rate-ugx" name="rateUgx" type="number" step="0.01">
+        
         <label for="cap">Monthly Cap</label>
         <input id="cap" name="cap" type="number" step="0.01">
+        
         <button type="submit">Save Settings</button>
       </form>
     </section>
+    
     <section id="about" aria-labelledby="about-heading">
       <h2 id="about-heading">About</h2>
-      <p>Track your student expenses and budgets.<br> Contact: <a href="mailto:your@email.com">your@email.com</a> | <a href="https://github.com/your_username">GitHub</a></p><br>
-      <button id="export-json">Export JSON</button>
-      <input type="file" id="import-json" accept=".json">
-      <span id="import-status" aria-live="polite"></span>
+      <p>Track your student expenses and budgets.<br> Contact: <a href="mailto:your@email.com">your@email.com</a> | <a href="https://github.com/your_username">GitHub</a></p>
+      
+      <div class="data-actions">
+        <h3>Data Management</h3>
+        <div class="action-buttons">
+          <button id="export-json" class="action-btn export-btn">
+            Export Data
+          </button>
+          <button id="import-json-btn" class="action-btn import-btn">
+            Import Data
+          </button>
+          <input type="file" id="import-json" accept=".json" class="file-input">
+        </div>
+        <span id="import-status" aria-live="polite" class="status-message"></span>
+        <p class="help-text">Export your data as JSON or import existing records. File must be in valid JSON format.</p>
+      </div>
     </section>
   </main>
+  
   <footer>
-    <small>&copy; 2025 prince-nda></small>
+    <small>&copy; 2025 prince-nda</small>
   </footer>
+  
   <script>
     // Theme Toggle Functionality
     const themeToggle = document.getElementById('theme-toggle');
@@ -189,6 +221,7 @@
     // Initialize with light theme
     setTheme('light');
   </script>
+  
   <script type="module" src="scripts/ui.js"></script>
 </body>
 </html>
