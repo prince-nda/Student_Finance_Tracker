@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Student Finance Tracker</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="styles/main.css">
+  <link rel="icon" type="image/png" href="assets/logo.png">
+</head>
+<body>
+  <header>
+  <h1>Student Finance Tracker</h1>
+  <div style="display: flex; align-items: center; gap: 2em; flex-wrap: wrap; width: 100%;">
+    <nav style="flex: 1;">
+      <a href="#main" class="skip-link">Skip to content</a>
+      <ul>
+        <li><a href="#dashboard">Dashboard</a></li>
+        <li><a href="#records">Records</a></li>
+        <li><a href="#add">Add/Edit</a></li>
+        <li><a href="#settings">Settings</a></li>
+        <li><a href="#about">About</a></li>
+      </ul>
+    </nav>
+    <div class="theme-switch-wrapper">
+      <label class="theme-switch" for="theme-toggle">
+        <input type="checkbox" id="theme-toggle">
+        <span class="slider"></span>
+      </label>
+    </div>
+  </div>
+</header>
+  <main id="main">
+    <section id="dashboard" aria-labelledby="dashboard-heading">
+      <h2 id="dashboard-heading">Statistics Overview</h2>
+      <div class="dashboard-cards">
+        <div class="stat-card">
+            <div class="stat-title">Total Records</div>
+            <div class="stat-value" id="stat-total">0</div>
+          </div>
+        <div class="stat-card">
+            <div class="stat-title">Total Spent</div>
+            <div class="stat-value" id="stat-spent">0</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-title">Top Category</div>
+            <div class="stat-value" id="stat-category">N/A</div>
+          </div>
+        </div>
+        <div class="stat-card">
+            <div class="stat-title">Last 7 Days</div>
+            <div class="stat-value" id="stat-trend">0%</div>
+          </div>
+        </div>
+      </div>
+      <div class="progress-bar" aria-label="Monthly Cap Progress">
+        <div class="progress-fill" id="progress-fill"></div>
+      </div>
+      <div id="cap-status" aria-live="polite"></div>
+      <canvas id="trend-chart" width="400" height="150" aria-label="Last 7 days trend"></canvas>
+    </section>
+    <section id="records" aria-labelledby="records-heading">
+      <h2 id="records-heading">Records</h2>
+      <div>
+        <label for="search">Search (regex):</label>
+        <input id="search" name="search" type="text" autocomplete="off">
+        <label><input type="checkbox" id="search-case"> Case-insensitive</label>
+      </div>
+      <table id="records-table" aria-describedby="records-desc">
+        <caption id="records-desc">List of all transactions</caption>
+        <thead>
+          <tr>
+            <th data-sort="date">Date</th>
+            <th data-sort="description">Description</th>
+            <th data-sort="amount">Amount</th>
+            <th data-sort="category">Category</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+      <div id="records-cards" class="cards"></div>
+    </section>
+    <section id="add" aria-labelledby="add-heading">
+      <h2 id="add-heading">Add/Edit Transaction</h2>
+      <form id="record-form" autocomplete="off">
+        <label for="desc">Description</label>
+        <input id="desc" name="description" type="text" required>
+        <span class="error" id="desc-error" aria-live="assertive"></span>
+        <label for="amt">Amount</label>
+        <input id="amt" name="amount" type="number" step="0.01" required>
+        <span class="error" id="amt-error" aria-live="assertive"></span>
+        <label for="cat">Category</label>
+        <input id="cat" name="category" list="cat-list" required>
+        <datalist id="cat-list">
+          <option value="Food">
+          <option value="Books">
+          <option value="Transport">
+          <option value="Entertainment">
+          <option value="Fees">
+          <option value="Other">
+        </datalist>
+        <span class="error" id="cat-error" aria-live="assertive"></span>
+        <label for="date">Date</label>
+        <input id="date" name="date" type="date" required>
+        <span class="error" id="date-error" aria-live="assertive"></span>
+        <button type="submit">Save</button>
+      </form>
+    </section>
+    <section id="settings" aria-labelledby="settings-heading">
+      <h2 id="settings-heading">Settings</h2>
+      <form id="settings-form">
+        <label for="base-currency">Base Currency</label>
+        <select id="base-currency" name="baseCurrency">
+          <option value="USD">USD (US Dollar)</option>
+          <option value="EUR">EUR (Euro)</option>
+          <option value="RWF">RWF (Rwandan Franc)</option>
+          <option value="NGN">NGN (Nigerian Naira)</option>
+          <option value="GHS">GHS (Ghanaian Cedi)</option>
+          <option value="UGX">UGX (Ugandan Shilling)</option>
+        </select>
+        <label for="rate-eur">EUR Rate</label>
+        <input id="rate-eur" name="rateEur" type="number" step="0.01">
+        <label for="rate-rwf">RWF Rate</label>
+        <input id="rate-rwf" name="rateRwf" type="number" step="0.01">
+        <label for="rate-ngn">NGN Rate</label>
+        <input id="rate-ngn" name="rateNgn" type="number" step="0.01">
+        <label for="rate-ghs">GHS Rate</label>
+        <input id="rate-ghs" name="rateGhs" type="number" step="0.01">
+        <label for="rate-ugx">UGX Rate</label>
+        <input id="rate-ugx" name="rateUgx" type="number" step="0.01">
+        <label for="cap">Monthly Cap</label>
+        <input id="cap" name="cap" type="number" step="0.01">
+        <button type="submit">Save Settings</button>
+      </form>
+    </section>
+    <section id="about" aria-labelledby="about-heading">
+      <h2 id="about-heading">About</h2>
+      <p>Track your student expenses and budgets.<br> Contact: <a href="mailto:your@email.com">your@email.com</a> | <a href="https://github.com/your_username">GitHub</a></p><br>
+      <button id="export-json">Export JSON</button>
+      <input type="file" id="import-json" accept=".json">
+      <span id="import-status" aria-live="polite"></span>
+    </section>
+  </main>
+  <footer>
+    <small>&copy; 2025 prince-nda></small>
+  </footer>
+  <script>
+    // Theme Toggle Functionality
+    const themeToggle = document.getElementById('theme-toggle');
+    const htmlElement = document.documentElement;
+    
+    // Store theme preference in memory
+    let currentTheme = 'light';
+    
+    // Function to get current theme colors
+    window.getThemeColors = function() {
+      const isDark = currentTheme === 'dark';
+      return {
+        primary: isDark ? '#64b5f6' : '#1565c0',
+        text: isDark ? '#e0e0e0' : '#222',
+        background: isDark ? '#2d2d2d' : '#fff'
+      };
+    };
+    
+    // Function to set theme
+    function setTheme(theme) {
+      currentTheme = theme;
+      if (theme === 'dark') {
+        htmlElement.setAttribute('data-theme', 'dark');
+        themeToggle.checked = true;
+      } else {
+        htmlElement.removeAttribute('data-theme');
+        themeToggle.checked = false;
+      }
+      
+      // Trigger custom event for chart refresh
+      window.dispatchEvent(new CustomEvent('themeChanged', { detail: { theme } }));
+    }
+    
+    // Toggle theme on switch change
+    themeToggle.addEventListener('change', function() {
+      if (this.checked) {
+        setTheme('dark');
+      } else {
+        setTheme('light');
+      }
+    });
+    
+    // Initialize with light theme
+    setTheme('light');
+  </script>
+  <script type="module" src="scripts/ui.js"></script>
+</body>
+</html>
