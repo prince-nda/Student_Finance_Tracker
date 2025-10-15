@@ -3,7 +3,7 @@ import { compileRegex, highlight, filterRecords } from './search.js';
 
 // Currency symbols
 const currencySymbols = {
-  USD: "$", EUR: "€", RWF: "FRw", NGN: "₦", GHS: "₵", UGX: "USh"
+  USD: "$", EUR: "€", RWF: "RWF", NGN: "₦", GHS: "₵", UGX: "USh"
 };
 
 // Sorting state
