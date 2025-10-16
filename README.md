@@ -79,17 +79,9 @@ Everything saves automatically in your browser
 # File Structure
 
 Student-Finance-Tracker/
-├── index.html        
-├── styles/
-│   └── main.css       
-├── scripts/
-│   ├── ui.js          
-│   ├── state.js        
-│   ├── search.js      
-│   ├── validator.js 
-│   └── storage.js     
-
-
+index.html        
+styles which contains : main.css       
+scripts which contains: ui.js state.js search.js validator.js storage.js    
 
 # About
 
