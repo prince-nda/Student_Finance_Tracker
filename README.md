@@ -2,7 +2,7 @@
 is a simple web app to help students track expenses, manage budgets, and see where your money is going. Built with plain JavaScript - no frameworks needed.
 
 # Live Demo
-you can check it here:
+you can check it here: https://youtu.be/HNTyE9LYLPc
 
 # What It Does
 Track your daily spending
@@ -20,7 +20,7 @@ Export your data as backup
 Works on phones and computers
 
 # How to Use
-Visit the live demo:
+Visit the live demo via: https://youtu.be/HNTyE9LYLPc
 
 or Download the files to your computer.
 
