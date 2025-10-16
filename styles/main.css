@@ -334,7 +334,7 @@ tr:focus-within {
 }
 
 .delete-btn:hover, .delete-btn:focus {
-  background: #b71c1c;
+  background: #660909;
 }
 
 /* Sorting indicators */
