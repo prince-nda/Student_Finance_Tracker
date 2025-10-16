@@ -34,6 +34,7 @@
       <p>Loading your financial data...</p>
     </div>
     
+    <!-- Dashboard Section -->
     <section id="dashboard" aria-labelledby="dashboard-heading">
       <h2 id="dashboard-heading">Statistics Overview</h2>
       <div class="dashboard-cards">
@@ -61,6 +62,7 @@
       <canvas id="trend-chart" width="400" height="150" aria-label="Last 7 days trend"></canvas>
     </section>
     
+    <!-- Records Section -->
     <section id="records" aria-labelledby="records-heading">
       <h2 id="records-heading">Records</h2>
       <div>
@@ -84,6 +86,7 @@
       <div id="records-cards" class="cards"></div>
     </section>
     
+    <!-- Add/Edit Section -->
     <section id="add" aria-labelledby="add-heading">
       <h2 id="add-heading">Add/Edit Transaction</h2>
       <form id="record-form" autocomplete="off">
@@ -115,6 +118,7 @@
       </form>
     </section>
     
+    <!-- Settings Section -->
     <section id="settings" aria-labelledby="settings-heading">
       <h2 id="settings-heading">Settings</h2>
       <form id="settings-form">
@@ -130,7 +134,7 @@
         
         <label for="rate-rwf">RWF Rate</label>
         <input id="rate-rwf" name="rateRwf" type="number" step="0.01">
-      
+        
         <label for="cap">Monthly Cap</label>
         <input id="cap" name="cap" type="number" step="0.01">
         
@@ -138,9 +142,10 @@
       </form>
     </section>
     
+    <!-- About Section -->
     <section id="about" aria-labelledby="about-heading">
       <h2 id="about-heading">About</h2>
-      <p>Track your student expenses and budgets.<br> Contact: <a href="mailto:your@email.com">your@email.com</a> | <a href="https://github.com/your_username">GitHub</a></p>
+      <p>Track your student expenses and budgets.<br> Contact: <a href="mailto:your@email.com">princendahiro@email.com</a> | <a href="https://github.com">prince-nda</a></p>
       
       <div class="data-actions">
         <h3>Data Management</h3>
@@ -160,7 +165,7 @@
   </main>
   
   <footer>
-    <small>&copy; 2025 prince-nda</small>
+    <small>&copy; Finance Tracker by prince-nda</small>
   </footer>
   
   <script>
@@ -207,6 +212,34 @@
     
     // Initialize with light theme
     setTheme('light');
+
+    // SPA Navigation - Show only the targeted section
+    function handleNavigation() {
+      // Hide all sections first
+      document.querySelectorAll('section').forEach(section => {
+        section.style.display = 'none';
+      });
+      
+      // Show the target section based on URL hash
+      const hash = window.location.hash || '#dashboard';
+      const targetSection = document.querySelector(hash);
+      if (targetSection) {
+        targetSection.style.display = 'block';
+      } else {
+        // Fallback to dashboard
+        document.querySelector('#dashboard').style.display = 'block';
+        window.location.hash = '#dashboard';
+      }
+    }
+
+    // Handle initial load and hash changes
+    window.addEventListener('load', handleNavigation);
+    window.addEventListener('hashchange', handleNavigation);
+
+    // Set default to dashboard if no hash
+    if (!window.location.hash) {
+      window.location.hash = '#dashboard';
+    }
   </script>
   
   <script type="module" src="scripts/ui.js"></script>
