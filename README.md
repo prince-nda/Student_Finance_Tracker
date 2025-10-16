@@ -26,7 +26,6 @@ or Download the files to your computer.
 
 Open in a web browser you might need to use a local server:
 
-bash
 # If you have Python:
 python -m http.server 8000
 
