@@ -78,16 +78,17 @@ Everything saves automatically in your browser
 
 # File Structure
 
-Student finance-tracker/
-├── index.html          (main page)
+Student-Finance-Tracker/
+├── index.html        
 ├── styles/
-│   └── main.css       (all styling)
-└── scripts/
-    ├── ui.js          (main functions)
-    ├── state.js       (data handling)
-    ├── search.js      (search features)
-    ├── validator.js   (form checking)
-    └── storage.js     (save/load data)
+│   └── main.css       
+├── scripts/
+│   ├── ui.js          
+│   ├── state.js        
+│   ├── search.js      
+│   ├── validator.js 
+│   └── storage.js     
+
 
 
 # About
