@@ -388,9 +388,6 @@ settingsForm.addEventListener('submit', e => {
     rates: {
       EUR: parseFloat(settingsForm.rateEur.value) || defaultSettings.rates.EUR,
       RWF: parseFloat(settingsForm.rateRwf.value) || defaultSettings.rates.RWF,
-      NGN: parseFloat(settingsForm.rateNgn.value) || defaultSettings.rates.NGN,
-      GHS: parseFloat(settingsForm.rateGhs.value) || defaultSettings.rates.GHS,
-      UGX: parseFloat(settingsForm.rateUgx.value) || defaultSettings.rates.UGX
     },
     cap: parseFloat(settingsForm.cap.value) || defaultSettings.cap
   };
@@ -458,7 +455,7 @@ function refreshDashboard() {
   renderTrendChart(records);
 }
 
-// Initialize everything
+// Initialize everything - FIXED VERSION
 function initializeApp() {
   refreshDashboard();
   renderRecordsTable();
@@ -467,17 +464,26 @@ function initializeApp() {
   
   // Initialize form
   const recordForm = document.getElementById('record-form');
-  recordForm.reset();
+  if (recordForm) recordForm.reset();
   
-  // Load settings into form
+  // Load settings into form - WITH NULL CHECKS
   const settings = getSettings();
-  settingsForm.baseCurrency.value = settings.baseCurrency;
-  settingsForm.rateEur.value = settings.rates.EUR;
-  settingsForm.rateRwf.value = settings.rates.RWF;
-  settingsForm.rateNgn.value = settings.rates.NGN;
-  settingsForm.rateGhs.value = settings.rates.GHS;
-  settingsForm.rateUgx.value = settings.rates.UGX;
-  settingsForm.cap.value = settings.cap || '';
+  
+  // Check if settingsForm and its elements exist before setting values
+  if (settingsForm) {
+    if (settingsForm.baseCurrency) {
+      settingsForm.baseCurrency.value = settings.baseCurrency || 'USD';
+    }
+    if (settingsForm.rateEur) {
+      settingsForm.rateEur.value = settings.rates.EUR || 0.93;
+    }
+    if (settingsForm.rateRwf) {
+      settingsForm.rateRwf.value = settings.rates.RWF || 1450;  // Changed to 1450
+    }
+    if (settingsForm.cap) {
+      settingsForm.cap.value = settings.cap || '';
+    }
+  }
 }
 
 // Listen for theme changes and re-render chart
