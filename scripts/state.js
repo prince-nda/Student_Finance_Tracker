@@ -4,10 +4,7 @@ export const defaultSettings = {
   baseCurrency: "USD",
   rates: {
     EUR: 0.93,
-    RWF: 1250,
-    NGN: 1500,
-    GHS: 12.5,
-    UGX: 3850
+    RWF: 1450
   },
   cap: 1000
 };
