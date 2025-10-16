@@ -46,7 +46,7 @@ header, footer {
 
 nav ul {
   display: flex;
-  gap: 1em;
+  gap: 1.5em;
   list-style: none;
   padding: 0;
   margin: 0;
@@ -55,13 +55,32 @@ nav ul {
 nav a {
   color: var(--header-text);
   text-decoration: none;
-  font-weight: 500;
+  font-weight: 600; 
+  font-size: 1.1em; 
+  padding: 0.5em 1em; 
+  border-radius: 4px;
+  transition: background-color 0.2s ease;
 }
 
 nav a:focus, nav a:hover {
-  text-decoration: underline;
-  outline: 2px solid #f3e8e8;
+  background: rgba(255, 255, 255, 0.15);
+  text-decoration: none;
+  outline: 2px solid rgba(255, 255, 255, 0.5);;
 }
+
+@media (max-width: 768px) {
+  nav ul {
+    gap: 1em;
+  }
+
+  nav a {
+    font-size: 1em;
+    padding: 0.75em 1em;
+    text-align: center;
+    display: block;
+  }
+}
+
 
 .skip-link {
   position: absolute;
@@ -75,6 +94,33 @@ nav a:focus, nav a:hover {
 
 .skip-link:focus {
   left: 0;
+}
+
+/* Hide all sections by default */
+section {
+  display: none;
+}
+
+/* Show only the targeted section */
+section:target {
+  display: block;
+}
+
+/* Smooth transition for section changes */
+section {
+  transition: opacity 0.3s ease;
+}
+
+/* Optional: Add visual indicator for active nav link */
+nav a[href]:focus,
+nav a[href]:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 4px;
+}
+
+/* Ensure proper spacing when only one section is visible */
+main {
+  min-height: 60vh;
 }
 
 /* GRADIENT TOGGLE WITH ANIMATION */
@@ -154,7 +200,6 @@ input:checked + .slider:after {
   transform: scale(1.1);
   box-shadow: 0 6px 20px rgba(0,0,0,0.3);
 }
-/* ===== END GRADIENT TOGGLE ===== */
 
 main {
   max-width: 900px;
@@ -305,8 +350,6 @@ th {
 tr:focus-within {
   outline: 2px solid #1565c0;
 }
-
-/* ===== NEW STYLES ADDED BELOW ===== */
 
 /* Edit/Delete buttons */
 .edit-btn, .delete-btn {
@@ -478,6 +521,28 @@ input[type="submit"]:focus {
   font-style: italic;
 }
 
+/* Footer Styles */
+body {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh; 
+}
+
+main {
+  flex: 1; 
+  max-width: 900px;
+  margin: auto;
+  padding: 2em 1em;
+}
+
+footer {
+  background: var(--header-bg);
+  color: var(--header-text);
+  padding: 1em 2em;
+  text-align: center;
+  margin-top: auto; 
+}
+
 /* Mobile responsive buttons */
 @media (max-width: 768px) {
   nav ul {
@@ -549,3 +614,4 @@ input[type="submit"]:focus {
     gap: 0.5em;
   }
 }
+
