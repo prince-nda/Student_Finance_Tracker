@@ -4,6 +4,8 @@ is a simple web app to help students track expenses, manage budgets, and see whe
 # Live Demo
 you can check it here: https://youtu.be/HNTyE9LYLPc
 
+also here: https://prince-nda.github.io/Student_Finance_Tracker/
+
 # What It Does
 Track your daily spending
 
@@ -20,7 +22,7 @@ Export your data as backup
 Works on phones and computers
 
 # How to Use
-Visit the live demo via: https://youtu.be/HNTyE9LYLPc
+Visit the live demo via: https://prince-nda.github.io/Student_Finance_Tracker/
 
 or Download the files to your computer.
 
